@@ -61,12 +61,12 @@ a {
 .navbar-custom {
   margin-bottom: 0;
   border-bottom: 1px solid transparentize($grayscale-light, 0.7);
-  text-transform: uppercase;
-  font-family: "Montserrat","Helvetica Neue",Helvetica,Arial,sans-serif;
+  // text-transform: uppercase;
+  font-family: $grayscale-body-font-family;
   background-color: $grayscale-dark;
 
   .navbar-brand {
-    font-weight: 700;
+    // font-weight: 700;
 
     &:focus {
       outline: none;
@@ -153,6 +153,7 @@ a {
     vertical-align: middle;
 
     .brand-heading {
+      text-transform:none;
       font-size: 40px;
     }
 
@@ -204,7 +205,8 @@ a {
 
 
 .content-section {
-  padding-top: 100px;
+  padding-top: 50px;
+  padding-bottom: 50px;
 }
 
 .download-section {
@@ -227,7 +229,8 @@ a {
 @media(min-width:$screen-xs-max) {
 
   .content-section {
-    padding-top: 250px;
+    padding-top: 125px;
+    padding-bottom: 125px;
   }
 
   .download-section {
@@ -242,7 +245,7 @@ a {
 
 .btn {
   text-transform: uppercase;
-  font-family: "Montserrat","Helvetica Neue",Helvetica,Arial,sans-serif;
+  font-family: $grayscale-body-font-family;
   font-weight: 400;
   -webkit-transition: all .3s ease-in-out;
   -moz-transition: all .3s ease-in-out;

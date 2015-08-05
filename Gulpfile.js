@@ -4,10 +4,13 @@
 
 /* Get dependencies */
 var gulp = require('gulp'),
-    sass = require('gulp-ruby-sass'),
+    // sass = require('gulp-ruby-sass'),
+    sass = require('gulp-sass'),
+    sourcemaps = require('gulp-sourcemaps'),
     minifycss = require('gulp-minify-css'),
-    jshint = require('gulp-jshint'),
+    // jshint = require('gulp-jshint'),
     uglify = require('gulp-uglify'),
+    livereload = require('gulp-livereload'),
     imagemin = require('gulp-imagemin'),
     rename = require('gulp-rename'),
     concat = require('gulp-concat'),
@@ -40,8 +43,64 @@ var paths = {
 };
 
 /* Tasks */
+gulp.task('styles-debug', function() {
+    return gulp.src(paths.styles)
+        .pipe(sourcemaps.init())
+        .pipe(sass())
+        .pipe(sourcemaps.write('./maps'))
+        // .pipe(sourcemaps.write())
+    // return sass(paths.styles,{ sourcemap:true })
+    //     .pipe(sourcemaps.write())
+        .pipe(gulp.dest(paths.stylesOutput))
+        .pipe(rename({suffix: '.min'}))
+        .pipe(gulp.dest(paths.stylesOutput))
+        .pipe(livereload())
+        .pipe(notify({ message: 'Styles Debug task complete' }));
+});
+gulp.task('scripts-debug', function() {
+    return gulp.src(paths.scripts)
+        // .pipe(jshint('.jshintrc'))
+        // .pipe(jshint.reporter('default'))
+        .pipe(concat('main.js'))
+        .pipe(rename({suffix: '.min'}))
+        .pipe(gulp.dest(paths.scriptsOutput))
+        .pipe(livereload())
+        .pipe(notify({ message: 'Scripts-debug task complete' }));
+});
+// var tinylr;
+// gulp.task('livereload', function() {
+//   tinylr = require('tiny-lr')();
+//   tinylr.listen(35729);
+// });
+gulp.task('express', function() {
+  var express = require('express');
+  var app = express();
+  app.use(express.static(__dirname));
+  app.listen(3000);
+});
+// function notifyLiveReload(event) {
+//   var fileName = require('path').relative(__dirname, event.path);
+
+//   tinylr.changed({
+//     body: {
+//       files: [fileName]
+//     }
+//   });
+// }
+gulp.task('watch', function() {
+    livereload.listen();
+    gulp.watch('assets/js/**/*.js', ['scripts-debug']);
+    gulp.watch('assets/sass/**/*.scss', ['styles-debug']);
+    // gulp.watch('*.html', notifyLiveReload);
+    // gulp.watch('styles/*.css', notifyLiveReload);
+    // gulp.watch('js/*.js', notifyLiveReload);
+});
+
+
 gulp.task('styles', function() {
-    return sass(paths.styles,{ style: 'expanded' })
+    return gulp.src(paths.styles)
+        .pipe(sass().on('error', sass.logError))
+    // return sass(paths.styles,{ style: 'expanded' })
         .pipe(gulp.dest(paths.stylesOutput))
         .pipe(rename({suffix: '.min'}))
         .pipe(minifycss())
@@ -51,8 +110,8 @@ gulp.task('styles', function() {
 
 gulp.task('scripts', function() {
     return gulp.src(paths.scripts)
-        .pipe(jshint('.jshintrc'))
-        .pipe(jshint.reporter('default'))
+        // .pipe(jshint('.jshintrc'))
+        // .pipe(jshint.reporter('default'))
         .pipe(concat('main.js'))
         .pipe(gulp.dest(paths.scriptsOutput))
         .pipe(rename({suffix: '.min'}))
@@ -60,6 +119,7 @@ gulp.task('scripts', function() {
         .pipe(gulp.dest(paths.scriptsOutput))
         .pipe(notify({ message: 'Scripts task complete' }));
 });
+
 
 gulp.task('images', function() {
     return gulp.src(paths.images)
@@ -75,9 +135,15 @@ gulp.task('fonts', function() {
 });
 
 gulp.task('clean', function(cb) {
-    del([paths.stylesOutput, paths.scriptsOutput, paths.imagesOutput, paths.fontsOutput], cb)
+    // del([paths.stylesOutput, paths.scriptsOutput, paths.imagesOutput, paths.fontsOutput], cb);
 });
 
-gulp.task('default', ['clean'], function() {
+// gulp.task('default', ['clean'], function() {
+gulp.task('default', function() {
     gulp.start('styles', 'scripts', 'images', 'fonts');
+});
+
+// gulp.task('debug', ['styles-debug', 'scripts-debug', 'fonts', 'images', 'express', 'livereload', 'watch'], function() {
+gulp.task('debug', ['express', 'watch'], function() {
+
 });

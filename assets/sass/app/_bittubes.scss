@@ -1,0 +1,63 @@
+.fa-chromewebstore,
+.fa-firefox {
+	vertical-align: bottom;
+}
+.fa-chromewebstore::before,
+.fa-firefox::before {
+	content: " ";
+	background: 50% 50% no-repeat;
+	background-size: contain;
+	height: 1.1em;
+	width: 1.1em;
+	display: block;
+
+}
+.fa-chromewebstore::before {
+	background-image: url("../images/chrome-125.png");
+}
+.fa-firefox::before {
+	background-image: url("../images/firefox-101.png");
+}
+
+
+
+.platform {
+	border: none !important;
+	> .img {
+		display: inline-block;
+		height: 100px;
+		min-width: 100px;
+		background-position: 50% 50%;
+		background-size: contain;
+		background-repeat: no-repeat;
+	}
+}
+
+.platform-youtube {
+	background-image: url("../images/YouTube-logo-light.png");
+	width: 160px;
+	:hover > & {
+		background-image: url("../images/YouTube-logo-full_color.png");
+	}
+}
+
+.platform-bittubes {
+	background-image: url("../images/Logo_Bittubes-white2_250x41.png");
+	width: 200px;
+	:hover > & {
+		background-image: url("../images/Logo_Bittubes_250x41.png");
+	}
+}
+
+
+.pulse.btn-circle {
+	background-image: url("../images/Icon_Final_64.png");
+	background-size: 71%;
+	background-position: 30% 50%;
+	background-repeat: no-repeat;
+	border: 0;
+}
+
+.navbar-brand {
+	font-family: $grayscale-headline-font-family;
+}
