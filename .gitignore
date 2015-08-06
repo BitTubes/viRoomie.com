@@ -61,3 +61,8 @@ node_modules
 
 ### Images
 images
+
+# new stuff from git ignore
+=======
+styles/main.min.css
+styles/main.css
