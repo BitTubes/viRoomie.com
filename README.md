@@ -1,3 +1,9 @@
+## Meta Validators:
+* https://cards-dev.twitter.com/validator
+* https://developers.facebook.com/tools/debug/og/object?q=viroomie.com
+
+
+## Old startbootstrap grayscale text:
 I do not take credit, for the designing of this template!
 
 The original version can be found at [Start Bootstrap](http://startbootstrap.com/) - [Grayscale](http://startbootstrap.com/template-overviews/grayscale/)
