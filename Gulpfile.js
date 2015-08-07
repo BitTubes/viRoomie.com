@@ -17,6 +17,12 @@ var gulp = require('gulp'),
     concat = require('gulp-concat'),
     notify = require('gulp-notify'),
     cache = require('gulp-cache');
+var run = require('gulp-run');
+var usemin = require('gulp-usemin');
+var uglify = require('gulp-uglify');
+var minifyHtml = require('gulp-minify-html');
+// var minifyCss = require('gulp-minify-css');
+var rev = require('gulp-rev');
     // del = require('del');
 
 /* Set paths */
@@ -137,6 +143,30 @@ gulp.task('fonts', function() {
 
 gulp.task('clean', function(cb) {
     // del([paths.stylesOutput, paths.scriptsOutput, paths.imagesOutput, paths.fontsOutput], cb);
+});
+
+gulp.task('deploy', function() {
+    gulp.src('./fonts/**/*')
+        .pipe(gulp.dest('./public/fonts'));
+    gulp.src('./images/**/*')
+        .pipe(gulp.dest('./public/images'));
+    gulp.src('./js/main.min.js')
+        .pipe(gulp.dest('./public/js'));
+    gulp.src('./styles/main.min.css')
+        .pipe(gulp.dest('./public/styles'));
+    gulp.src('./error.html')
+        .pipe(gulp.dest('./public'));
+    gulp.src('./index.html')
+        .pipe(usemin({
+            css: [minifycss(), 'concat'],
+            html: [minifyHtml({empty: true})],
+            js: [uglify(), rev()]
+        }))
+        .pipe(gulp.dest('./public'));
+        // .pipe(gulp.dest('build/'));
+    gulp.src('./favicon.ico')
+        .pipe(gulp.dest('./public'));
+    run('aws s3 sync public/ s3://viroomie.com').exec();
 });
 
 // gulp.task('default', ['clean'], function() {
