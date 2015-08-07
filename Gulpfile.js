@@ -1,3 +1,5 @@
+/* jshint node:true */
+"use strict";
 /**
  * Created by Meki on 2015.02.25..
  */
@@ -8,15 +10,14 @@ var gulp = require('gulp'),
     sass = require('gulp-sass'),
     sourcemaps = require('gulp-sourcemaps'),
     minifycss = require('gulp-minify-css'),
-    // jshint = require('gulp-jshint'),
     uglify = require('gulp-uglify'),
     livereload = require('gulp-livereload'),
     imagemin = require('gulp-imagemin'),
     rename = require('gulp-rename'),
     concat = require('gulp-concat'),
     notify = require('gulp-notify'),
-    cache = require('gulp-cache'),
-    del = require('del');
+    cache = require('gulp-cache');
+    // del = require('del');
 
 /* Set paths */
 
