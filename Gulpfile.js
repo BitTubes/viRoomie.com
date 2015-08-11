@@ -168,6 +168,17 @@ gulp.task('deploy', function() {
         .pipe(gulp.dest('./public'));
     run('aws s3 sync public/ s3://viroomie.com').exec();
 });
+gulp.task('deploy-html', function() {
+    gulp.src('./index.html')
+        .pipe(usemin({
+            css: [minifycss(), 'concat'],
+            html: [minifyHtml({empty: true})],
+            js: [uglify(), rev()]
+        }))
+        .pipe(gulp.dest('./public'));
+        // .pipe(gulp.dest('build/'));
+    run('aws s3 cp public/index.html s3://viroomie.com').exec();
+});
 
 // gulp.task('default', ['clean'], function() {
 gulp.task('default', function() {
