@@ -53,14 +53,48 @@
 }
 
 
-.pulse.btn-circle {
-	background-image: url("../images/Icon_Final_64.png");
-	background-size: 71%;
-	background-position: 30% 50%;
-	background-repeat: no-repeat;
-	border: 0;
-}
+// .pulse.btn-circle {
+// 	background-image: url("../images/Icon_Final_64.png");
+// 	background-size: 71%;
+// 	background-position: 30% 50%;
+// 	background-repeat: no-repeat;
+// 	border: 0;
+// }
 
 .navbar-brand {
 	font-family: $grayscale-headline-font-family;
+}
+
+
+.btn-circle.pulse {
+	position: relative;
+	border: 0;
+	width: auto;
+	// background-repeat: no-repeat;
+	// background-size: auto 80%;
+	// background-position: 0.2em;
+	// background-image: none;
+	&:hover {
+		padding-left: 1.8em;
+		// background-image: url("../images/Icon_Final_64.png");
+
+		&::before {
+			opacity: 1;
+		}
+	}
+
+	&::before {
+		content: "";
+		position: absolute;
+		top: 0;
+		left: 0;
+		right: 0;
+		bottom: 0;
+		background-image: url("../images/Icon_Final_64.png");
+		background-repeat: no-repeat;
+		background-size: auto 80%;
+		background-position: 0.2em;
+		opacity: 0;
+		transition: opacity .3s ease-in-out;
+	}
 }
